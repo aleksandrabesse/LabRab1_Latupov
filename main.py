@@ -84,7 +84,7 @@ row3=[]
 row2.append(np.copy(X[2]))
 row3.append(np.copy(X[3]))
 ColVo=5
-for step in range(1,5):
+for step in range(1,ColVo):
     generate(step)
     row2.append(np.copy(X[2]))
     row3.append(np.copy(X[3]))
@@ -101,12 +101,14 @@ def Insertion2():
 Insertion2()
 
 fig,ax3=plt.subplots()
-ax3.plot(row2[0],row3[0],row2[1],row3[1],row2[2],row3[2],row2[3],row3[3],row2[4],row3[4])
+legend=[]
+for i in range(ColVo):
+    ax3.plot(row2[i],row3[i])
+    legend.append('{:.2f}'.format(t[i]))
+ax3.legend(legend)
 ax3.set_title('Сгруппированные данные для различных значений шума и порогового значения')
 plt.grid(True)
 plt.show()
 
-
-
-
 print('Задание i')
+
