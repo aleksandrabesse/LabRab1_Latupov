@@ -62,24 +62,30 @@ plt.grid(True)
 #fig.savefig('Задание e.png')
 
 print('Задание f')
-trash = [random.randint(0,10) for i in range(5)]#float(input('Введите o'))
+trash = [random.randint(0,10) for i in range(5)]
 print('Задание g')
-t = []#float(input('Введите t'))
+t = []
 
+def generate(step):
+    global X
+    X[2] = div + random.randint(0, trash[step] ** 2)
+    t.append(np.median(X[2]))
+    for i in range(N):
+        if X[2][i] < t[step]:
+            X[3][i] = 0
+        else:
+            X[3][i] = 1
+generate(0)
+
+print('Задание h')
 
 row2=[]
 row3=[]
-for step in range(5):
-    def generate():
-        global X
-        X[2] = div + random.randint(0, trash[step] ** 2)
-        t.append(np.median(X[2]))
-        for i in range(N):
-            if X[2][i] < t[step]:
-                X[3][i] = 0
-            else:
-                X[3][i] = 1
-    generate()
+row2.append(np.copy(X[2]))
+row3.append(np.copy(X[3]))
+ColVo=5
+for step in range(1,5):
+    generate(step)
     row2.append(np.copy(X[2]))
     row3.append(np.copy(X[3]))
 
@@ -102,5 +108,5 @@ plt.show()
 
 
 
-print('Задание h')
+
 print('Задание i')
