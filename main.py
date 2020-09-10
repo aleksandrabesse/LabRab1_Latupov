@@ -108,10 +108,10 @@ for i in range(ColVo):
 ax3.legend(legend)
 ax3.set_title('Сгруппированные данные для различных значений шума и порогового значения')
 plt.grid(True)
-plt.show()
+
 
 print('Задание i')
-ColVo=10
+ColVo=3
 trash = [i for i in range(ColVo)]
 R=[]
 for i in trash:
@@ -135,6 +135,9 @@ for i in range(ColVo):
 ax4.legend(legend)
 ax4.set_title('Данные для разного значения шума')
 plt.grid(True)
+
+fig,ax5=plt.subplots()
+for k in range(ColVo):
+    ax5.plot([i for i in range(N)],R[k])
+    ax5.axhline(t[k],color='r',linewidth=1)
 plt.show()
-
-
