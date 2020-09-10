@@ -89,16 +89,16 @@ for step in range(1,ColVo):
     row2.append(np.copy(X[2]))
     row3.append(np.copy(X[3]))
 
-def Insertion2():
-    global row2,row3
-    for y in range(5):
+def Insertion2(row2,row3,Col):
+    for y in range(Col):
         for i in range(1,N):
             j=i
             while j>0 and row2[y][j-1]>row2[y][j]:
                 row2[y][j-1],row2[y][j]=row2[y][j],row2[y][j-1]
                 row3[y][j-1],row3[y][j]=row3[y][j],row3[y][j-1]
                 j-=1;
-Insertion2()
+    return row2,row3
+row2,row3=Insertion2(row2,row3,ColVo)
 
 fig,ax3=plt.subplots()
 legend=[]
@@ -111,4 +111,30 @@ plt.grid(True)
 plt.show()
 
 print('Задание i')
+ColVo=10
+trash = [i for i in range(ColVo)]
+R=[]
+for i in trash:
+    R.append(div + i ** 2)
+t=[np.median(k) for k in R]
+R2=[[0 for i in range(N)] for j in range(ColVo)]
+
+for i in range(ColVo):
+    for j in range(N):
+        if R[i][j] < t[i]:
+            R2[i][j] = 0
+        else:
+            R2[i][j] = 1
+
+R,R2=Insertion2(R,R2,ColVo)
+legend=[]
+fig,ax4=plt.subplots()
+for i in range(ColVo):
+    ax4.plot(R[i],R2[i])
+    legend.append('{:.2f}'.format(trash[i]))
+ax4.legend(legend)
+ax4.set_title('Данные для разного значения шума')
+plt.grid(True)
+plt.show()
+
 
