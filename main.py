@@ -17,7 +17,6 @@ print(X)
 
 print('Задание c')
 print(X)
-#IMT
 IMT = X[1]/((X[0]/100)**2)
 
 for j in range(N):
@@ -44,22 +43,24 @@ print(X)
 
 print('Задание d')
 fig,ax1=plt.subplots()
+
 ax1.set_title('График роста и веса')
 ax1.set_xlabel('Рост')
 ax1.set_ylabel('Вес')
 plt.grid(True)
 ax1.scatter(X[0],X[1],marker='o')
 #plt.show()
-#fig.savefig('Задание с.png')
+
+fig.savefig('Задание с.png',bbox_inches='tight',dpi=700)
 
 print('Задание e')
 div = X[1]/X[0]
 fig,ax2=plt.subplots()
 ax2.hist(div)
-ax2.set_title('Гистограмма соотношения')
+ax2.set_title('Гистограмма соотношения вес/рост')
 plt.grid(True)
 #plt.show()
-#fig.savefig('Задание e.png')
+fig.savefig('Задание e.png',bbox_inches='tight',dpi=700)
 
 print('Задание f')
 trash = [random.randint(0,10) for i in range(5)]
@@ -106,9 +107,9 @@ for i in range(ColVo):
     ax3.plot(row2[i],row3[i])
     legend.append('{:.2f}'.format(t[i]))
 ax3.legend(legend)
-ax3.set_title('Сгруппированные данные для различных значений шума и порогового значения')
+ax3.set_title('Сгруппированные данные для различных значений шума и порогового значения(в. 1)')
 plt.grid(True)
-
+fig.savefig('Задание h1.png',bbox_inches='tight',dpi=700)
 
 print('Задание i')
 
@@ -117,13 +118,11 @@ trash = np.arange(0,ColVo)
 R=[]
 for i in trash:
     R.append(div + i ** 2)
-#t=[np.median(k) for k in R]
 t=[random.choice(k) for k in R]
 R2=[[0 for i in range(N)] for j in range(ColVo)]
 for i in range(ColVo):
     for j in range(N):
         R2[i][j]=R[i][j]<t[i]
-#R2=[((1,0)[R[i][j]<t[i]] for j in range(N)) for i in range(ColVo)]
 
 R,R2=Insertion2(R,R2,ColVo)
 legend=[]
@@ -134,16 +133,22 @@ for i in range(ColVo):
 ax4.legend(legend)
 ax4.set_title('Данные для разного значения шума')
 plt.grid(True)
+fig.savefig('Задание i(1).png',bbox_inches='tight',dpi=700)
 
+legend.clear()
 fig,ax5=plt.subplots()
 for k in range(ColVo):
     ax5.plot(np.arange(0,N),R[k])
     ax5.axhline(t[k],color='r',linewidth=1)
-
+    legend.append('{:.2f}'.format(t[k]))
+ax5.legend(legend)
+ax5.set_title('Данные для разного значения шума')
+fig.savefig('Задание i(2).png',bbox_inches='tight',dpi=700)
 
 fig, ax6 = plt.subplots(1,ColVo)
 for i in range(ColVo):
     ax6[i].bar(np.arange(0,N),R[i],color=[('red','green')[R2[i][o]] for o in range(N)])
     ax6[i].set_xlabel('t = ' + '{:.2f}'.format(t[i]))
     ax6[i].xaxis.set_label_position("top")
-plt.show()
+fig.savefig('Задание i(3).png',dpi=700)
+#plt.show()
