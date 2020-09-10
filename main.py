@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 D=4
-N = random.randint(1000,2000)
+N = random.randint(1000,1500)
 print('Задание a')
 X=np.zeros((D, N),float)
 print(X.shape)
@@ -111,20 +111,19 @@ plt.grid(True)
 
 
 print('Задание i')
-ColVo=3
-trash = [i for i in range(ColVo)]
+
+ColVo=5
+trash = np.arange(0,ColVo)
 R=[]
 for i in trash:
     R.append(div + i ** 2)
-t=[np.median(k) for k in R]
+#t=[np.median(k) for k in R]
+t=[random.choice(k) for k in R]
 R2=[[0 for i in range(N)] for j in range(ColVo)]
-
 for i in range(ColVo):
     for j in range(N):
-        if R[i][j] < t[i]:
-            R2[i][j] = 0
-        else:
-            R2[i][j] = 1
+        R2[i][j]=R[i][j]<t[i]
+#R2=[((1,0)[R[i][j]<t[i]] for j in range(N)) for i in range(ColVo)]
 
 R,R2=Insertion2(R,R2,ColVo)
 legend=[]
@@ -138,6 +137,13 @@ plt.grid(True)
 
 fig,ax5=plt.subplots()
 for k in range(ColVo):
-    ax5.plot([i for i in range(N)],R[k])
+    ax5.plot(np.arange(0,N),R[k])
     ax5.axhline(t[k],color='r',linewidth=1)
+
+
+fig, ax6 = plt.subplots(1,ColVo)
+for i in range(ColVo):
+    ax6[i].bar(np.arange(0,N),R[i],color=[('red','green')[R2[i][o]] for o in range(N)])
+    ax6[i].set_xlabel('t = ' + '{:.2f}'.format(t[i]))
+    ax6[i].xaxis.set_label_position("top")
 plt.show()
