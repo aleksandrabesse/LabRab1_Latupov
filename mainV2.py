@@ -113,6 +113,7 @@ for i in range(k):
 
 
 fig, ax6 = plt.subplots(2,5)
+
 for i in range(5):
     color=[('red','green')[ROW4[i][o]] for o in range(N)]
     ax6[0][i].bar(np.arange(0,N),ROW3[i],color=color)
@@ -128,6 +129,7 @@ Cucu1,Cucu2 = np.meshgrid(axesX,T)
 fig2,ax2=plt.subplots()
 ax2=plt.axes(projection='3d')
 ax2.plot_surface(Cucu1, Cucu2, TwoDimArray, cmap=cm.coolwarm)
+ax2.set_title('Распределение заболевших по группам')
 ax2.set_xlabel('Группы')
 ax2.set_ylabel('Граница для глюкозы')
 ax2.set_zlabel('Количество заболевших')
@@ -139,7 +141,7 @@ for c in range(k):
     ax7.bar(axesX, TwoDimArray[c], zs=Q[c], zdir='y', alpha=1, width=0.05, label = 't = '+ '{:.2f}'.format(T[c]))
 ax7.legend()
 plt.xticks([round(axesX[i],2) for i in range(k)])
-
+ax7.set_title('Распределение заболевших по группам')
 ax7.set_xlabel('Разделение по группам')
 ax7.set_ylabel('Шум,q')
 ax7.set_zlabel('Количество заболевших')
