@@ -99,7 +99,7 @@ def Insertion2(row2,row3,Col):
                 row3[y][j-1],row3[y][j]=row3[y][j],row3[y][j-1]
                 j-=1;
     return row2,row3
-row2,row3=Insertion2(row2,row3,ColVo)
+#row2,row3=Insertion2(row2,row3,ColVo)
 
 fig,ax3=plt.subplots()
 legend=[]
@@ -124,7 +124,7 @@ for i in range(ColVo):
     for j in range(N):
         R2[i][j]=R[i][j]<t[i]
 
-R,R2=Insertion2(R,R2,ColVo)
+#R,R2=Insertion2(R,R2,ColVo)
 legend=[]
 fig,ax4=plt.subplots()
 for i in range(ColVo):
@@ -152,3 +152,20 @@ for i in range(ColVo):
     ax6[i].xaxis.set_label_position("top")
 fig.savefig('Задание i(3).png',dpi=700)
 #plt.show()
+
+fig = plt.figure()
+ax7 = plt.axes(projection="3d")
+A,B=np.meshgrid(trash,t)
+
+C=np.array([k[:ColVo] for k in R])
+
+#ax7.plot_wireframe(A,B,C)
+ax7.plot_surface(A,B,C,cmap='winter')
+fig = plt.figure()
+ax8 = plt.axes(projection='3d')
+ax8.contour3D(A, B, C, 50, cmap='binary')
+ax8.set_xlabel('Шум')
+ax8.set_ylabel('Порог')
+ax8.set_zlabel('Глюкоза');
+plt.show()
+
