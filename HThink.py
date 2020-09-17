@@ -50,6 +50,7 @@ for io in range(k):
     l += h
 
 print(axesX) #размер = числу групп
+
 TwoDimArray = np.zeros([k,k],dtype=np.int)
 Q=[]
 T=[]
@@ -60,7 +61,7 @@ for c in range(k):
     #print('q для рандома = ', q)
     #print('генерим третью строчку')
     X[2] = div + random.randint(0,q*q)
-    t = random.choice(X[2])
+    t = random.choice(X[2][round(N/2):])
     T.append(t)
     #print('Значение для глюкозы = ', t )
     #print('генерим 4 строчку')
@@ -79,32 +80,17 @@ sumArray = np.sum(TwoDimArray,axis = 1)
 for i in range(k):
     if CountIll[i]!=sumArray[i]:
         TwoDimArray[i][k-1]+=CountIll[i]-sumArray[i];
-print(TwoDimArray)
-from matplotlib import cm
+
+
+
 fig = plt.figure()
-ax = plt.axes(projection="3d")
-Cucu1,Cucu2 = np.meshgrid(axesX,T)
-ax.plot_wireframe(Cucu1, Cucu2, TwoDimArray,color='r')
-ax.minorticks_on()
-ax.set_xlabel('Разделение на группы')
-ax.set_ylabel('Граница для глюкозы')
+ax = fig.add_subplot(projection='3d')
+for c in range(k):
+    ax.bar(axesX, TwoDimArray[c], zs=Q[c], zdir='y', alpha=1, width=0.05, label = 't = '+ '{:.2f}'.format(T[c]))
+ax.legend()
+plt.xticks([round(axesX[i],2) for i in range(k)])
+
+ax.set_xlabel('Разделение по группам')
+ax.set_ylabel('Шум,q')
 ax.set_zlabel('Количество заболевших')
-
-
-fig2,ax2=plt.subplots()
-ax2=plt.axes(projection='3d')
-ax2.plot_surface(Cucu1, Cucu2, TwoDimArray, cmap=cm.coolwarm)
-ax2.set_xlabel('Разделение на группы')
-ax2.set_ylabel('Граница для глюкозы')
-ax2.set_zlabel('Количество заболевших')
-import matplotlib.ticker as ticker
-fig2,ax3=plt.subplots()
-ax3.legend(['1','2'])
-ax3=plt.axes(projection='3d')
-ax3.scatter(Cucu1, Cucu2, TwoDimArray, cmap='viridis')
-ax3.legend(['1','2'])
-ax3.set_xlabel('Разделение на группы')
-ax3.set_ylabel('Граница для глюкозы')
-ax3.set_zlabel('Количество заболевших')
 plt.show()
-

@@ -90,15 +90,15 @@ for step in range(1,ColVo):
     row2.append(np.copy(X[2]))
     row3.append(np.copy(X[3]))
 
-def Insertion2(row2,row3,Col):
-    for y in range(Col):
-        for i in range(1,N):
-            j=i
-            while j>0 and row2[y][j-1]>row2[y][j]:
-                row2[y][j-1],row2[y][j]=row2[y][j],row2[y][j-1]
-                row3[y][j-1],row3[y][j]=row3[y][j],row3[y][j-1]
-                j-=1;
-    return row2,row3
+# def Insertion2(row2,row3,Col):
+#     for y in range(Col):
+#         for i in range(1,N):
+#             j=i
+#             while j>0 and row2[y][j-1]>row2[y][j]:
+#                 row2[y][j-1],row2[y][j]=row2[y][j],row2[y][j-1]
+#                 row3[y][j-1],row3[y][j]=row3[y][j],row3[y][j-1]
+#                 j-=1;
+#     return row2,row3
 #row2,row3=Insertion2(row2,row3,ColVo)
 
 fig,ax3=plt.subplots()
@@ -139,7 +139,7 @@ legend.clear()
 fig,ax5=plt.subplots()
 for k in range(ColVo):
     ax5.plot(np.arange(0,N),R[k])
-    ax5.axhline(t[k],color='r',linewidth=1)
+    ax5.axhline(t[k],color='r',linewidth=1,label='t = ' + '{:.2f}'.format(t[k]))
     legend.append('{:.2f}'.format(t[k]))
 ax5.legend(legend)
 ax5.set_title('Данные для разного значения шума')
@@ -151,21 +151,6 @@ for i in range(ColVo):
     ax6[i].set_xlabel('t = ' + '{:.2f}'.format(t[i]))
     ax6[i].xaxis.set_label_position("top")
 fig.savefig('Задание i(3).png',dpi=700)
-#plt.show()
 
-fig = plt.figure()
-ax7 = plt.axes(projection="3d")
-A,B=np.meshgrid(trash,t)
-
-C=np.array([k[:ColVo] for k in R])
-
-#ax7.plot_wireframe(A,B,C)
-ax7.plot_surface(A,B,C,cmap='winter')
-fig = plt.figure()
-ax8 = plt.axes(projection='3d')
-ax8.contour3D(A, B, C, 50, cmap='binary')
-ax8.set_xlabel('Шум')
-ax8.set_ylabel('Порог')
-ax8.set_zlabel('Глюкоза');
 plt.show()
 
