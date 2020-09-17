@@ -145,3 +145,4 @@ ax7.set_ylabel('Шум,q')
 ax7.set_zlabel('Количество заболевших')
 fig.savefig('Задание h(3).png',dpi=700)
 plt.show()
+
