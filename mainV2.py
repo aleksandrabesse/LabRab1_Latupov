@@ -7,8 +7,6 @@ D=4
 N = random.randint(1000,1500)
 print('Задание a')
 X=np.zeros((D, N),float)
-print(X.shape)
-print(X)
 
 print('Задание b')
 X[0]=[random.randint(25,210) for i in range(N)]
@@ -16,7 +14,7 @@ X[1]=[random.randint(10,150) for i in range(N)]
 print(X)
 
 print('Задание c')
-print(X)
+
 IMT = X[1]/((X[0]/100)**2)
 
 for j in range(N):
@@ -84,14 +82,16 @@ ROW4=[]
 for c in range(k):
     q =random.randint(0,u*u)
     Q.append(q)
-    #print('q для рандома = ', q)
-    #print('генерим третью строчку')
+    print('q  = ', q)
+    print('Генерация X[2]')
     X[2] = div + random.randint(0,q*q)
     t = random.choice(X[2])
     T.append(t)
-    #print('Значение для глюкозы = ', t )
-    #print('генерим 4 строчку')
+    print(X)
+    print('t =  ', t )
+    print('Генерация X[3]')
     X[3]=[(0,1)[X[2][i]>t] for i in range(N)]
+    print(X)
     l = np.min(X[2]) #минимальное значение сгенерированной глюкозы
     w=0
     okrj=np.max(X[2])
@@ -104,7 +104,7 @@ for c in range(k):
     CountIll.append(np.ndarray.tolist(X[3]).count(1))
     ROW3.append(X[2].copy())
     ROW4.append(X[3].astype('int32').copy())
-
+print(X)
 
 sumArray = np.sum(TwoDimArray,axis = 1)
 for i in range(k):
@@ -115,7 +115,7 @@ for i in range(k):
 fig, ax6 = plt.subplots(2,5)
 
 for i in range(5):
-    color=[('red','green')[ROW4[i][o]] for o in range(N)]
+    color=[('green','red')[ROW4[i][o]] for o in range(N)]
     ax6[0][i].bar(np.arange(0,N),ROW3[i],color=color)
     ax6[0][i].set_xlabel('t = ' + '{:.2f}'.format(T[i]) + ' q = '+ '{:.2f}'.format(Q[i]))
     ax6[0][i].xaxis.set_label_position("top")

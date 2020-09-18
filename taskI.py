@@ -67,4 +67,6 @@ ax3.set_title('Зависимость количества заболевших 
 ax3.set_xlabel('Параметр t')
 ax3.set_ylabel('Количество заболевших')
 fig.savefig('Задание i(3).png',dpi=700)
-plt.show()
+
+fig,ax4 =plt.subplots()
+
