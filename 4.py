@@ -62,12 +62,14 @@ def logicalRegressionFunction(count, b):
         sum += countLogicalRegressionFunction(xData[i], yData[i], b)
     return sum
 
+
 def classify(x):
     temp = sigmoid(dot(b.T, x))
     if temp > 1 - temp:
         return 1
     else:
         return 0
+
 
 # colvo = []
 # stepik = []
@@ -76,7 +78,7 @@ def classify(x):
 def mainFunction(step, curr):
     # global colvo, stepik, maximus
     answers = []
-    countIterations = 100000
+    countIterations = 1000
     currentTime = datetime.now()
     for i in range(countIterations):
         b = curr + step * gradientFunction(int(0.8 * count), curr)
@@ -86,16 +88,16 @@ def mainFunction(step, curr):
         else:
             answers.append((curr, o))
         curr = b
-    # if len(answers) > 0:
-    maximum = answers[0]
-    ans = []
-    for i in answers:
-        ans.append(i[1])
-        if i[1] > maximum[1]:
-            maximum = i
-    print('Шаг', step, 'Количество значений', len(answers), 'Время выполнения',
-            str((datetime.now() - currentTime).total_seconds()), 'Максимальное значение функции ', maximum[1],
-            ' с вектором тэта  ', maximum[0])
+    if len(answers) > 0:
+        maximum = answers[0]
+        ans = []
+        for i in answers:
+            ans.append(i[1])
+            if i[1] > maximum[1]:
+                maximum = i
+        print('Шаг', step, 'Количество значений', len(answers), 'Время выполнения',
+              str((datetime.now() - currentTime).total_seconds()), 'Максимальное значение функции ', maximum[1],
+              ' с вектором тэта  ', maximum[0])
         # fig = plt.figure()
         # ax = plt.axes()
         # ax.scatter(range(0, len(ans)), ans)
@@ -105,6 +107,8 @@ def mainFunction(step, curr):
         # stepik.append(step)
         # colvo.append(len(answers))
         # maximus.append(maximum[1])
+        return maximum[0]
+    return 0
 
 
 # Подбор шага. Этап 1
@@ -115,9 +119,19 @@ def mainFunction(step, curr):
 # steps = [0.0000001, 0.0000003, 0.0000005, 0.0000006, 0.0000007, 0.0000008, 0.0000009, 0.000001, 0.000003, 0.000005]
 # curr = random.choice(xData)
 # for step in steps:
-step = 5 * 10**(-6)
-mainFunction(step, np.zeros((6, 1)))
+step = 7 * 10 ** (-6)
+for _ in range(10):
+    b = mainFunction(step, random.choice(xData))
 
+# b = np.array([[-0.5461089], [2.74545863], [-0.01256164], [-0.27719582], [-0.20184739], [0.00747046]])
+myX = np.array([[2, 1, 20, 1, 0, 7.25]])
+testCount = count - int(0.8 * count)
+yes = 0
+for i in range(int(0.8 * count), count):
+    result=classify(xData[i])
+    if yData[i]==result:
+        yes+=1
+print((yes/testCount)*100)
 # fig = plt.figure()
 # ax = plt.axes()
 # ax.plot(colvo, stepik)
@@ -130,3 +144,20 @@ mainFunction(step, np.zeros((6, 1)))
 # fig2.savefig("max.png")
 
 
+# #ЗАДАНИЕ 4.2
+# n = count
+# k = sum(yData)
+# valuationP=k/n
+# sq = np.sqrt((valuationP*(1-valuationP))/n)
+# z=1.959963985
+# print('Доверительный интервал для вероятности - (',valuationP-z*sq,',',valuationP+z*sq,')')
+
+# print('Уровень значимости при 9 степенях свободы' + "{:10.3f}".format(Ln_1) )
+# print( 'Уровень значимости при 7 степенях свободы' + "{:10.3f}".format(Ln_3))
+# L_k=0.1
+# if L_k>=Ln_3 and L_k<=Ln_1:
+#     print('Нет достаточных оснований для принятия какого - либо решения ')
+# elif Ln_3>L_k:
+#     print('Принимаем гипотезу о нормальности распределения')
+# else:
+#     print('Отвергаем гипотезу о нормальности распределения')
